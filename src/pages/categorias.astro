@@ -1,0 +1,29 @@
+---
+import Category from "../components/astro/Category.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+
+const user = Astro.locals.user;
+if (!user) {
+	return Astro.redirect("/login");
+}
+const userId = user.id; // Get the user ID
+
+export function getSomething() {
+    return userId? "something" : "nothing";
+}
+---
+
+<MainLayout >
+    <div
+        class='flex flex-col justify-center items-start w-100 border-gray-200 dark:border-gray-700 mx-auto pb-16'>
+        <div class='grid w-[100%] grid-cols-1 gap-8 my-2 mt-4 sm:grid-cols-2 mb-8'>
+
+            <Category title="Contexto Histórico" description="descripcion..." link=`/categorias/contexto?userId=${userId}` />
+            <Category title="Heroes Nacionales" description="descripcion..." link=`/categorias/heroes?userId=${userId}` />
+            <Category title="Crisis y Conflictos Políticos" description="descripcion..." link=`/categorias/crisis?userId=${userId}` />
+            <Category title="Revolución del Canal" description="descripcion..." link=`/categorias/revolucion?userId=${userId}` />
+
+        </div>
+    </div>
+</MainLayout>
+

@@ -1,0 +1,124 @@
+---
+import { Picture } from "astro:assets";
+import Welcome from "../components/react/WelcomePopup"
+import Playbutton  from "/public/game-controller-svgrepo-com.svg";
+import FaviconMetaData from '../components/astro/FaviconMetaData.astro';
+import Seo from '../components/astro/Seo.astro';
+import { ViewTransitions } from 'astro:transitions';
+import Themes from 'astro-themes';
+import Navbar from '../components/astro/Navbar.astro';
+import '@fontsource/geist-sans';
+import '../styles/global.css';
+
+const user = Astro.locals.user;
+if (!user) {
+	return Astro.redirect("/login");
+}
+
+export const prerender = false
+
+---
+
+<html lang="es">
+
+  <head lang="es">
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width' />
+    <Seo title={'Bienvenido'} description={' desc '} ogImage={' '} />
+    <FaviconMetaData />
+    <ViewTransitions />
+    <Themes defaultTheme='dark' />
+  </head>
+  <body  class='bg-gray-50 bgcanal text-black dark:text-white'>
+    <div class='flex flex-col justify-center px-8'>
+      <Navbar class="naiden" />
+    </div>
+    <main id="skip">
+      <Welcome username={user.username} client:only="react" />
+      <div class="w-100 h-100 flex justify-center">
+          <link rel="stylesheet" href="https://use.typekit.net/sce4jji.css">
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+          <div class=" flex mb-4 justify-center bg-customColor " >
+    
+              <div class="flex flex-col ">
+                  
+                  <div class=" top-1/2 -translate-y-1 -mt-7">
+                      <h1 id="title"  >
+                          PanaAprende
+                      </h1>
+                  </div>
+                  
+                 <div class="flex justify-center items-center mb-10 flex-1">
+                     
+                     <a class="hover:lift" href="/categorias">
+                          <Picture  src={Playbutton}
+                           width={200} alt="boton jugar"/>
+                     </a>
+                     
+                 </div> 
+    
+              </div>
+              
+          </div>
+    
+      </div>
+      
+    </main>
+
+  </body>
+</html>
+
+
+
+<style>
+
+    .bgcanal {
+      background-image: url("fondo1.webp");
+    }
+
+    .naiden{
+      background: inherit;
+    }
+
+    .bg-customColor {
+        width: 800px;
+        height: 600px; 
+        border-radius: 0.5rem;
+        background: radial-gradient(circle, #5a5958 10%, transparent 11%);
+        background-size: 1em 1em;
+        background-color: #342c28;
+        opacity: 1;
+    }
+
+    #title {
+        font-family: modern-love, sans-serif;
+        font-weight: 2;
+        font-style: normal;
+        color: #b19c85; 
+        font-size: calc(1rem + 5vw);
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-40%);
+      }
+    }
+
+    .animate-bounce {
+      animation: bounce 0.5s ease-in-out;
+    }
+
+    .hover\:lift:hover {
+      transform: translateY(-20px);
+      transition: transform 0.3s ease-in-out;
+    }
+
+
+</style>
+

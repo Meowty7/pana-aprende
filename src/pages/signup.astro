@@ -1,0 +1,9 @@
+---
+import SignupForm from "../components/SignUpForm";
+import MainLayout from "../layouts/MainLayout.astro";
+
+---
+
+<MainLayout>
+    <SignupForm client:only="react" />
+</MainLayout>

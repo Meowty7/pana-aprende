@@ -1,0 +1,15 @@
+---
+import LoginForm from "../components/LoginForm";
+import MainLayout from "../layouts/MainLayout.astro";	
+
+if (Astro.locals.user) {
+	return Astro.redirect("/");
+}
+
+---
+
+<MainLayout title='Iniciar sesión'>
+  
+  <LoginForm client:only="react" />
+      
+</MainLayout>

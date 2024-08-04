@@ -1,0 +1,43 @@
+---
+
+import { getCollection } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+import SelectedNumber from '../../components/SelectedNumber.jsx';
+
+
+export async function getStaticPaths() {
+    const blogsEntries = await getCollection('categorias');
+    return blogsEntries.map((categorias) => ({
+        params: { level: categorias.data.level },
+        props: { categorias },
+    }));
+}
+
+
+const { categorias } = Astro.props;
+const questions = categorias.data.questions
+
+let numberofquestions = questions.length
+const options = Array.from({ length: numberofquestions }, (_, i) => i +1);
+
+export const prerender = true
+
+---
+
+<MainLayout>
+
+    <div class="flex flex-col justify-center items-center ">
+
+        <SelectedNumber option={options} questions={questions} client:only="react" />
+        
+        <div class="p-4 mb-4 w-[700px] break-words  rounded-lg shadow-sm border-gray-200">
+            
+            {questions.map((item: { question: unknown; }, index: any) => (
+                <h3 class="text-lg  font-medium">Pregunta {index+1}:</h3>
+                <p class= "">{item.question}</p>
+            ))}
+            
+        </div>
+        
+    </div>
+</MainLayout>
