@@ -3,7 +3,7 @@ import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 
 
 const TextToSpeech =({ text }) => {
-  const apiKey = process.env.API_KEY || "fc18944df12442a7af603347f2aca84e";
+  const apiKey = process.env.REACT_APP_API_KEY || "fc18944df12442a7af603347f2aca84e";
   const [status, setStatus] = useState('');
   const [player, setPlayer] = useState(null);
   const [isDisabled, setIsDisabled] = useState(false);
