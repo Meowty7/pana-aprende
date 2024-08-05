@@ -1,14 +1,14 @@
 
 export default async function Rank() {
 
-    const baseUrl = process.env.API_BASE_URL;  
+    const baseUrl = process.env.API_BASE_URL || "https://pana-aprende.vercel.app/api";  
     const [ranking, setRanking] = useState([]);
 
     
   useEffect(() => {
     const fetchRanking = async () => {
       try {
-        const response = await fetch(baseUrl);
+        const response = await fetch(`${baseUrl}/users-scores`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
