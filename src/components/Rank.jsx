@@ -1,7 +1,7 @@
 
 export default async function Rank() {
-
-    const baseUrl = process.env.VITE_API_BASE_URL || "https://pana-aprende.vercel.app/api";  
+    const [loading, setLoading] = useState(true);
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || "https://pana-aprende.vercel.app/api";  
     const [ranking, setRanking] = useState([]);
 
     
@@ -23,7 +23,7 @@ export default async function Rank() {
 
     fetchRanking();
   }, [baseUrl]);
-
+    if (loading) return <div>Loading...</div>;
     return (
         <div class="flex justify-center flex-col items-center p-4 w-50">
             <div class="container flex flex-col items-center justify-center">
