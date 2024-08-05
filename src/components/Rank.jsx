@@ -1,7 +1,7 @@
 
 export default async function Rank() {
 
-    const baseUrl = process.env.API_BASE_URL || "https://pana-aprende.vercel.app/api";  
+    const baseUrl = process.env.VITE_API_BASE_URL || "https://pana-aprende.vercel.app/api";  
     const [ranking, setRanking] = useState([]);
 
     
