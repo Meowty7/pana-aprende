@@ -2,9 +2,8 @@
 
 import MainLayout from "../layouts/MainLayout.astro";
 
-const baseUrl = import.meta.env.API_BASE_URL || "http://localhost:4321";
-console.log(import.meta.env.API_BASE_URL)
-const response = await fetch(`${baseUrl}/api/users-scores`);   
+const baseUrl = import.meta.env.API_BASE_URL || "https://pana-aprende.vercel.app/api/users-scores";
+const response = await fetch(baseUrl);   
 const ranking = await response.json();
 
 ---

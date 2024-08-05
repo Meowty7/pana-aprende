@@ -1,6 +1,6 @@
 import sqlite from "better-sqlite3";
 // Abre la base de datos
-export const db = sqlite("./tmp/database.db");
+export const db = sqlite("/tmp/database.db");
 
 // Crea la tabla de usuarios si no existe
 db.exec(`CREATE TABLE IF NOT EXISTS user (
