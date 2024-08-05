@@ -3,8 +3,17 @@
 import MainLayout from "../layouts/MainLayout.astro";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL || "https://pana-aprende.vercel.app/api";
-const response = await fetch(`${baseUrl}/users-scores`);
-const ranking = await response.json();
+
+let ranking = [];
+try {
+    const response = await fetch(`${baseUrl}/users-scores`);
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    ranking = await response.json();
+} catch (error) {
+    console.error('Fetch error:', error);
+}
 
 ---
 
