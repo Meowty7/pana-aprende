@@ -1,6 +1,6 @@
 ---
 import Category from "../components/astro/Category.astro";
-import MainLayout from "../layouts/MainLayout.astro";
+import Custom from "../layouts/CustomLayout.astro";
 
 const user = Astro.locals.user;
 if (!user) {
@@ -11,19 +11,31 @@ const userId = user.id; // Get the user ID
 export function getSomething() {
     return userId? "something" : "nothing";
 }
+
+const one = "El Canal de Panamá, construido entre 1881 y 1914, conecta los océanos Atlántico y Pacífico, revolucionando el comercio mundial y la navegación."
+const two = "La Revolución del Canal de Panamá llevó a la entrega del canal al país en 1999. Figuras clave como Omar Torrijos y Jimmy Carter negociaron los Tratados Torrijos-Carter, que facilitaron la transferencia. El 9 de enero de 1964, una protesta estudiantil en la Zona del Canal aumentó las tensiones y aceleró la devolución del canal a Panamá."
+const three = "La Revolución del Canal de Panamá generó conflictos por la pérdida de soberanía con los Acuerdos Hay-Bunau-Varilla y las tensiones del 9 de Enero de 1964. Los Tratados Torrijos-Carter en 1977 devolvieron el canal a Panamá, pero surgieron desafíos de gobernanza y descontento interno."
+const four = "El Canal de Panamá utiliza esclusas para elevar y bajar barcos a través del istmo, facilitando el tránsito entre los océanos Atlántico y Pacífico. En 2016, se completó una expansión significativa con nuevas esclusas para buques más grandes. La construcción del canal también tuvo impactos ambientales notables y fue crucial durante la Segunda Guerra Mundial para el movimiento de tropas y suministros."
+
 ---
 
-<MainLayout >
+<Custom title="Categorias" description={'Hola '+user.username+ ', puedes escoger entre una de nuestras categorías'} >
     <div
         class='flex flex-col justify-center items-start w-100 border-gray-200 dark:border-gray-700 mx-auto pb-16'>
         <div class='grid w-[100%] grid-cols-1 gap-8 my-2 mt-4 sm:grid-cols-2 mb-8'>
 
-            <Category title="Contexto Histórico" description="descripcion..." link=`/categorias/contexto?userId=${userId}` />
-            <Category title="Heroes Nacionales" description="descripcion..." link=`/categorias/heroes?userId=${userId}` />
-            <Category title="Crisis y Conflictos Políticos" description="descripcion..." link=`/categorias/crisis?userId=${userId}` />
-            <Category title="Revolución del Canal" description="descripcion..." link=`/categorias/revolucion?userId=${userId}` />
+            <Category title="Contexto Histórico" description={one} link=`/categorias/contexto?userId=${userId}` />
+            <Category title="Heroes Nacionales" description={two} link=`/categorias/heroes?userId=${userId}` />
+            <Category title="Crisis y Conflictos Políticos" description={three} link=`/categorias/crisis?userId=${userId}` />
+            <Category title="Revolución del Canal" description={four} link=`/categorias/revolucion?userId=${userId}` />
 
         </div>
     </div>
-</MainLayout>
+</Custom>
 
+<style>
+    body {
+        background-image: url("/fondo 2 nuevo.png");
+        background-size: 100% auto;
+    }
+</style>

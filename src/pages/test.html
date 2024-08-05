@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-to-Speech Example</title>
+</head>
+<body>
+    <h1>Text-to-Speech Example</h1>
+    <textarea id="text-to-speak" rows="4" cols="50">Hello, how are you today?</textarea><br>
+    <button onclick="speakText()">Read Text</button>
+
+    <script>
+        function speakText() {
+            const text = document.getElementById('text-to-speak').value;
+            const utterance = new SpeechSynthesisUtterance(text);
+
+            // Optionally, you can set properties like voice, pitch, and rate
+            utterance.voice = speechSynthesis.getVoices()[0]; // Choose a voice if available
+            utterance.pitch = 1;
+            utterance.rate = 1;
+
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html>

@@ -1,10 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
-import MainLayout from '../../layouts/MainLayout.astro';
+import MainLayout from '../../layouts/CustomLayout.astro';
+import TextToSpeech from '../../components/TextToSpeech';
 import { Picture } from 'astro:assets';
 import { format, parseISO } from 'date-fns';
 import readingTime from 'reading-time';
 import Panama from '/public/panflag.webp'
+
 
 export async function getStaticPaths() {
     const blogsEntries = await getCollection('categorias');
@@ -18,16 +20,43 @@ export const prerender = true;
 const { categorias } = Astro.props;
 const { Content } = await categorias.render();
 
+const backgroundff = `background-image: url('${'/' + categorias.data.image}')`;
+
+const cleanText = (text:string) => {
+  // Remove Markdown headers (e.g., ##, ###)
+  let cleanedText = text.replace(/(^|\s)#{1,6}\s.+$/gm, '');
+
+  // Remove imports or other unwanted content
+  cleanedText = cleanedText.replace(/import\s.+$/gm, '');
+
+  // Remove code blocks
+  cleanedText = cleanedText.replace(/```[\s\S]*?```/g, '');
+
+  // Remove asterisks used for emphasis and bold
+  cleanedText = cleanedText.replace(/\*\*|\*|__/g, '');
+
+  // Optionally, remove other Markdown elements like links
+  cleanedText = cleanedText.replace(/\[.*?\]\(.*?\)/g, ''); // Remove links
+
+  // Optionally, remove HTML tags if present
+  cleanedText = cleanedText.replace(/<\/?[^>]+(>|$)/g, ''); // Remove HTML tags
+
+  return cleanedText;
+}
+
+const cleanedContent = cleanText(categorias.body.toString());
 
 ---
 
 <MainLayout
+    style={backgroundff}
     title={categorias.data.title}
     description={categorias.data.description}
     ogImage={Astro.site + 'images/hackthebox/' + categorias.data.image}
 >
+
     <article
-        class='flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16'
+        class='flex dark:bg-gray-900 bg-slate-200 rounded shadow-2xl p-5 flex-col items-start justify-center w-full  max-w-2xl mx-auto mb-16'
     >
         <h1
             class='mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white'
@@ -62,10 +91,12 @@ const { Content } = await categorias.render();
                 {` • --`}
             </p>
         </div>
+        <TextToSpeech text={cleanedContent} client:load/>
         <div class='w-full mt-4 prose dark:prose-dark max-w-none break-words'>
             <h2>Descripción</h2>
             <p>{categorias.data.description}</p>
-            <Content />
+            <Content/>
         </div>
     </article>
 </MainLayout>
+
